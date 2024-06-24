@@ -47,6 +47,22 @@ func (ua *UnorderedArray) Search(value int) int {
 	return -1
 }
 
+// O(n)
+func (ua *UnorderedArray) Delete(value int) int {
+	position := ua.Search(value)
+
+	if position == -1 {
+		return -1
+	} else {
+		for i := position; i < ua.lastPosition; i++ {
+			ua.values[i] = ua.values[i+1]
+		}
+
+		ua.lastPosition--
+		return position
+	}
+}
+
 func main() {
 	ua := NewUnorderedArray(10)
 
@@ -63,5 +79,11 @@ func main() {
 	fmt.Println("Index of 5:", ua.Search(5))
 	fmt.Println("Index of 1:", ua.Search(1))
 	fmt.Println("Index of 4:", ua.Search(4))
+
+	fmt.Println("Search")
+	ua.Delete(8)
+	ua.Delete(4)
+
+	ua.Print()
 
 }
